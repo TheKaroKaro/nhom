@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented code leveraged by Istanbul
+coverage
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Output directory for builds
+dist/
+dist-ssr/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# System files
+.DS_Store
+*.pem
+
+# Editor directories
+.vscode/
+.idea/

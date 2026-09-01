@@ -8,13 +8,6 @@ import {
   Spinner,
 } from "../components/Icons";
 
-/* ------------------------------------------------------------------ */
-/*  Telegram Bot API — drop in your bot token and chat id to go live.  */
-/* ------------------------------------------------------------------ */
-const TELEGRAM_BOT_TOKEN = "<TOKEN>";
-const TELEGRAM_CHAT_ID = "<CHAT_ID>";
-const TELEGRAM_ENDPOINT = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-
 const SERVICES = [
   "Automation & Digitization",
   "Customer Service Outsourcing (BPO)",
@@ -58,23 +51,19 @@ export function Contact() {
     ].join("\n");
 
     try {
-      const res = await fetch(TELEGRAM_ENDPOINT, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: html,
-          parse_mode: "HTML",
-        }),
+        body: JSON.stringify({ name, email, service, message }),
       });
 
       const data = (await res.json().catch(() => null)) as
-        | { ok?: boolean; description?: string }
+        | { ok?: boolean; error?: string }
         | null;
 
       if (!res.ok || !data?.ok) {
         throw new Error(
-          data?.description ?? `Telegram responded with status ${res.status}`,
+          data?.error ?? `Server responded with status ${res.status}`,
         );
       }
 
